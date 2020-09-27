@@ -11,7 +11,7 @@ bool equalSumPartition(vector<LLI> &arr, LLI sum, LLI n) {
     }
 
     sum /= 2;
-    LLI t[n+1][sum+1];
+    bool t[n+1][sum+1];
     for (LLI i=0;i<n+1;i++) {
         t[i][0] = true;
     }

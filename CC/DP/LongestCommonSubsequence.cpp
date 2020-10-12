@@ -2,10 +2,39 @@
 #define LLI long long
 using namespace std;
 
+LLI t[10000][10000];
+
+void printLCS(string a, string b) {
+    LLI i = a.size();
+    LLI j = b.size();
+    stack <char> ans;
+    while (i > 0 && j > 0) {
+        //cout << i << " " << j << "\n";
+        if (a[i-1] == b[j-1]) {
+            ans.push(a[i-1]);
+            i--;
+            j--;
+        } else {
+            if (t[i-1][j] > t[i][j-1]) {
+                i--;
+            } else {
+                j--;
+            }
+        }
+    }
+
+    cout << "Longest Common Subsequence is: ";
+
+    while(!ans.empty()) {
+        cout << ans.top();
+        ans.pop();
+    }
+    cout << "\n";
+}
+
 
 LLI lengthLongestCommonSubsequence(string a, string b) {
     LLI n = a.size(), m = b.size();
-    LLI t[n+1][m+1];
 
     for (LLI i=0;i<n+1;i++)
         t[i][0] = 0;
@@ -22,13 +51,6 @@ LLI lengthLongestCommonSubsequence(string a, string b) {
         }
     }
 
-    // for (LLI i=0;i<n+1;i++) {
-    //     for (LLI j=0;j<m+1;j++) {
-    //         cout << t[i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
-
     return t[n][m];
 }
 
@@ -41,7 +63,7 @@ int main() {
     cin >> b;
 
     cout << lengthLongestCommonSubsequence(a,b) << "\n";
-
+    printLCS(a, b);
 
     return 0;
 }

@@ -5,6 +5,14 @@ using namespace std;
 LLI t[10000][10000];
 
 void printLCS(string a, string b) {
+
+    for (LLI i=0;i<a.size();i++) {
+        for (LLI j=0;j<b.size();j++) {
+            cout << t[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
     LLI i = a.size();
     LLI j = b.size();
     stack <char> ans;

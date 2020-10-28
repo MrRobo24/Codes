@@ -25,6 +25,13 @@ LLI change(LLI amount, vector<LLI>& coins) {
         }
     }
 
+    for (LLI i=0;i<n+1;i++) {
+        for (LLI j=0;j<amount+1;j++) {
+            cout << t[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
     return t[n][amount];
 }
 

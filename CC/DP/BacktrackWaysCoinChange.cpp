@@ -43,8 +43,8 @@ LLI coinChange(vector<LLI>& coins, LLI amount) {
         }
     }
     cout << "ANS: ";
-    for (auto i: ans) {
-        cout << i << " ";
+    for (LLI i=0;i<ans.size();i++) {
+        cout << ans[i] << " ";
     }
     cout << "\n";
 

@@ -1,12 +1,4 @@
-#include <bits/stdc++.h>
-#define LLI long long
-using namespace std;
-
-int main() {
-    LLI t;
-    cin >> t;
-    while (t--) {
-        LLI n;
+LLI n;
         cin >> n;
         LLI arr[n];
         for (LLI i=0;i<n;i++) {
@@ -20,15 +12,14 @@ int main() {
                 break;
             }
         }
-
         for (;j>=i;j--) {
             if (arr[j] > arr[i]) {
                 break;
             }
         }
-        j = (j<0?0:j);
+        
         swap(arr[i], arr[j]);
-        i = (i!=j?i+1:i);
+        i = i+1;
         j = n-1;
         while(i < j) {
             swap(arr[i], arr[j]);
@@ -39,5 +30,3 @@ int main() {
             cout << arr[i] << " ";
         }
         cout << "\n";
-    }
-}

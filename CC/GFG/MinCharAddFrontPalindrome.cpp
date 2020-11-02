@@ -46,6 +46,6 @@ LLI solve(string s) {
 int main() {
     string s;
     cin >> s;
-
+    
     cout << solve(s) << "\n";
 }

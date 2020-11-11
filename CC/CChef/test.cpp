@@ -1,4 +1,4 @@
-//AC & TLE
+//WA & TLE
 /*
 There are errors in normal case without 1 and with 1 cases too.
 */
@@ -184,7 +184,7 @@ int main() {
             if (arr[i] == 1) {
                 onei = i;
             }
-            if ( (arr[i]) %2 == 0) {
+            if (arr[i] %2 == 0) {
                 ec++;
                 odx[i+1] = odx[i];
             } else {
@@ -195,19 +195,19 @@ int main() {
             pfx[i+1] = (pfx[i]%MOD + arr[i]%MOD)%MOD;
         }
 
-        cout << "PFX: ";
-        for (LLI i=0;i<n+1;i++) {
-            cout << pfx[i] << " ";            
-        }
-        cout << "\n";
+        // cout << "PFX: ";
+        // for (LLI i=0;i<n+1;i++) {
+        //     cout << pfx[i] << " ";            
+        // }
+        // cout << "\n";
 
         //cin >> q;
-        q = 1;
-        while (q<=100) {
-            LLI r =  q;//(rand() % (50 - 1 + 1)) + 1;
-           q++;
+        q = 100;
+        while (q > 0) {
+            LLI r = q;//(rand() % (50 - 1 + 1)) + 1;
+            q--;
             //cin >> r;
-           cout << "R = " << r << "\n";
+            cout << "R = " << r << "\n";
             LLI cycle = 0, rem = 0, sum = 0;
 
             cycle = r / n;
@@ -217,10 +217,10 @@ int main() {
 
             //working with map
             if (onei != 0 && !history.empty()) {
-               for (map<LLI,LLI>::iterator it = history.begin();it != history.end();it++) {
-                   cout << it->first << "->" << it->second << ", ";
-               }
-               cout << "\n";
+                for (map<LLI,LLI>::iterator it = history.begin();it != history.end();it++) {
+                    cout << it->first << "->" << it->second << ", ";
+                }
+                cout << "\n";
 
                 map<LLI,LLI>::iterator last = history.find(r);
                 if (last != history.end()) {
@@ -232,78 +232,11 @@ int main() {
 
                     if (history.rbegin()->first > r 
                         && history.begin()->first < r) {
-
-                        LLI prevC = cycle*n;
-                        map<LLI,LLI>::iterator citer = history.end();
-                        while (prevC != 0) {
-                            citer = history.find(prevC);
-                            if (citer != history.end()) {
-                                break;
-                            }
-
-                            prevC = prevC - n;
-                        } 
-
-                        if (citer != history.end()) {
-                            curr = citer->first;
-                        } else {
-                            curr = 0;
+                        while (curr > 0 && history[curr] == 0) {
+                            curr--;
                         }
-
-                        // map<LLI,LLI>::reverse_iterator itr = history.rbegin();    
-
-                        // while (itr != history.rend()) {
-                        //     if (itr->first % n == 0 && itr->first <= r) {
-                        //         break;
-                        //     }
-                        //     itr++;
-                        // }
-
-
-                        // if (itr == history.rend()) {
-                        //     curr = 0;
-                        // } else {
-                        //     curr = itr->first;
-                        // }
-                        
-
-                        // while (curr > 0 && (history[curr] == 0 || curr % n != 0)){
-                        //     curr--;
-                        // }
                     } else if (history.rbegin()->first < r) {
-
-                        LLI prevC = cycle*n;
-                        map<LLI,LLI>::iterator citer = history.end();
-                        while (prevC != 0) {
-                            citer = history.find(prevC);
-                            if (citer != history.end()) {
-                                break;
-                            }
-
-                            prevC = prevC - n;
-                        } 
-
-                        if (citer != history.end()) {
-                            curr = citer->first;
-                        } else {
-                            curr = 0;
-                        }
-
-                        // map<LLI,LLI>::reverse_iterator itr = history.rbegin();    
-
-                        // while (itr != history.rend()) {
-                        //     if (itr->first % n == 0) {
-                        //         break;
-                        //     }
-                        //     itr++;
-                        // }
-
-                        // if (itr == history.rend()) {
-                        //     curr = 0;
-                        // } else {
-                        //     curr = itr->first;
-                        // }
-
+                        curr = history.rbegin()->first;
                     } else {
                         curr = 0;
                     }
@@ -314,13 +247,12 @@ int main() {
                         LLI lSum = history[curr];
                         LLI lCycle = curr / n;
                         LLI lRem = curr % n;
-                        cout << "LSUM " << lSum << "\n";
+
                         cycle = cycle - lCycle;
                         cout << "NEW CYCLE " << cycle << "\n";
                         LLI remSumOld = calcRemSum(pfx, odx, arr, lCycle, lRem, onei, n);
                         
                         cout << "REMSUM OLD " << remSumOld << "\n";
-                       
                         lSum  = (lSum%MOD - remSumOld%MOD)%MOD;
                         
                         sum = lSum;
@@ -412,15 +344,15 @@ int main() {
             cout << sum << "\n";
             //matching the old and new answers
             cout << "OLD SUM = " << old << " NEW SUM = " << sum << "\n";
-           if (old != sum) {
-               cout << "MISMATCH\n";
-               cout << "MISMATCH\n";
-               cout << "MISMATCH\n";
-               cout << "MISMATCH\n";
-               break;
-           } else {
-               //cout << "MATCH\n";
-           }
+            if (old != sum) {
+                cout << "MISMATCH\n";
+                cout << "MISMATCH\n";
+                cout << "MISMATCH\n";
+                cout << "MISMATCH\n";
+                break;
+            } else {
+                cout << "MATCH\n";
+            }
             
             history[r] = sum;
 

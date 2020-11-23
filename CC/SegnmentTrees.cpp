@@ -2,70 +2,56 @@
 #define LLI long long
 using namespace std;
 
-class Node {
-    public:
-    Node* left;
-    Node* right;    
-    LLI data;
-    LLI l;
-    LLI r;
-
-    Node(LLI l, LLI r) {
-        this->l = l;
-        this->r = r;
+LLI getSum(LLI l, LLI r, LLI curr, LLI ql, LLI qr, LLI* sgmt, LLI size) {
+    if (r < 0 || l >= size || l > r)  {
+        return -1;
     }
 
-    Node(LLI maxim, LLI l, LLI r) {
-        data = maxim;
-        this->l = l;
-        this->r = r;
+    if (l>= ql && r <= qr) {
+        return sgmt[curr];
     }
 
-};
+    LLI mid = l + (LLI)(r-l)/2;
 
-Node* fillTree(LLI* arr, LLI l, LLI r, Node* root) {
-
-    if (l == r) {
-        return new Node(arr[l], l, r);
+    if (l >= ql && l <= qr && r > qr ||
+        r <= qr && r >= ql && l < ql) {
+        return getSum(l, mid, curr*2 + 1, ql, qr, sgmt, size) + 
+            getSum(mid+1, r, curr*2 + 2, ql, qr, sgmt, size);
     }
 
-    root = new Node(l, r);
-    LLI mid = (l + r)/2;
-    root->left = fillTree(arr, l, mid, root->left);
-    root->right = fillTree(arr, mid+1, r, root->right);
-    root->data = max(root->left->data, root->right->data);
-    return root;
+    return 0;
 }
 
-LLI findMax(LLI l, LLI r, Node* root) {
-    if (root->l == l && root->r == r) {
-        return root->data;
+LLI fillTree(LLI* sgmt, LLI* arr, LLI start, LLI end, LLI curr) {
+
+    if (start == end) {
+        sgmt[curr] = arr[start];
+        return sgmt[curr];
     }
 
-    if (r < root->l) {
-        return findMax(l, r, root->left);
-    } else if (l > root->r) {
-        return findMax(l, r, root->right);
-    } else {
-        LLI mid = (l + r)/2;
-        return max(
-            findMax(l, mid, root->left),
-            findMax(mid+1, r, root->right)
-        );
-    }
-
+    LLI mid = start + (LLI)(end - start)/2;
+    sgmt[curr] = fillTree(sgmt, arr, start, mid, curr*2 + 1) 
+                + fillTree(sgmt, arr, mid+1, end, curr*2 + 2);
+    
+    return sgmt[curr];
 }
 
+LLI* constructSGMT(LLI n, LLI* arr) {
+    LLI size = pow(2,ceil((double)log2(n)));
+    // cout << size << " SIZE\n";
+    LLI* sgmt = new LLI[size];
+    memset(sgmt, 0, sizeof(sgmt));
 
-void inorder(Node* root) {
-    if (root == NULL) {
-        return;
+    fillTree(sgmt, arr, 0, n-1, 0);
+
+    cout << "SGMT OUT: ";
+    for (LLI i=0;i<size;i++) {
+        cout << sgmt[i] << " ";
     }
-
-    inorder(root->left);
-    cout << root->data << " ";
-    inorder(root->right);
+    cout << "\n";
+    return sgmt;
 }
+
 
 int main() {
     LLI n;
@@ -75,20 +61,17 @@ int main() {
         cin >> arr[i];
     }
 
-    Node* root = NULL;
-    cout << "CHECK\n";
-    root = fillTree(arr, 0, n-1, root);
+    LLI* sgmt = constructSGMT(n, arr);
+    LLI size = pow(2,ceil((double)log2(n)));
+    LLI ql = 6, qr = 8;
+    cout << getSum(0, n-1, 0, ql, qr, sgmt, size) << "\n";
+
+    // cout << "SIZE " << size << "\n";
+    // cout << "SGMT: ";
+    // for (LLI i=0;i<size;i++) {
+    //     cout << sgmt[i] << " ";
+    // }
+    // cout << "\n";
     
-    inorder(root);
-    LLI q;
-    cin >> q;
-    while (q--) {
-        LLI l, r;
-        cin >> l >> r;
-        LLI maxim = findMax(l, r, root);
-        cout << "Max in range " << l << " " << r << " is " << maxim << "\n";
-    }
-
-
     return 0;
 }

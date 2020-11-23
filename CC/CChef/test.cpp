@@ -1,77 +1,57 @@
 #include <bits/stdc++.h>
-#define LLI unsigned long long
+#define LLI long long int
 using namespace std;
-
-LLI MOD = pow(2,32);
-
-struct hashPair { 
-    template <class T1, class T2> 
-    size_t operator()(const pair<T1, T2>& p) const
-    { 
-        auto hash1 = hash<T1>{}(p.first); 
-        auto hash2 = hash<T2>{}(p.second); 
-        return (hash1 ^ hash2); 
-    } 
-};
-
-LLI mod(LLI n) { 
-    return ( n & (MOD - 1) ); 
-}   
-
 int main() {
 
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(NULL);
-    LLI n,q;
-    cin >> n >> q;
-    LLI weight[n];
-    for (LLI i=0;i<n;i++) {
-        cin >> weight[i];
-    }
-    LLI parent[n+1];
-    parent[0] = 0;
-    parent[1] = 0;
-    //taking input for edges
-    for (LLI i=0;i<n-1;i++) {
-        LLI u,v;
-        cin >> u >> v;
-        parent[v] = u;
-    }
+    LLI t;
+    cin >> t;
 
-    unordered_map< pair<LLI,LLI>, LLI, hashPair> storage;
-
-    while (q--) {
-        LLI u,v,uc,vc;
-        cin >> u >> v;
-        uc = u;
-        vc = v;
-        LLI sum = 0;
-
-        if (storage[{u,v}]) {
-            sum = storage[{u,v}];
-        } else {
-
-            while (u && v) {
-
-                // cout << "U AND V " << u << " " << v << "\n";
-                // cout << "SQR " << weightsqr[u-1] << "\n";
-                // cout << "WEIGHTS " << weight[u-1] << " " << weight[v-1] << "\n";
-                if (storage[{u,v}]) {
-                    sum = mod(sum + storage[{u,v}]);
-                    break;
+    while (t--) {
+        LLI n, ans = 1;
+        cin >> n;
+        string s;
+        cin >> s;
+        
+        LLI zero = 0, one = 0;
+        string comp = "";
+        for (LLI i=0;i<n;i++) {
+            char ch = s[i];
+            if (ch == '0') {
+                if (comp[comp.size()-1] == '0') {
+                    zero++;
+                } else if ((i+1 < n && s[i+1] == '1') ||
+                    (i-1>=0 && s[i-1] == '1') ) {
+                    comp += ch;
+                    continue;
+                } else {
+                    zero++;
                 }
+            } else {
 
-                sum = mod(sum + mod(weight[u-1] * weight[v-1]));
-                u = parent[u];
-                v = parent[v];   
-                // cout << "SUM " << sum << "\n";
-                
+                if (comp[comp.size()-1] == '1') {
+                    one++;
+                } else if ((i+1 < n && s[i+1] == '0') ||
+                    i-1 >=0 && s[i-1] == '0') {
+                        comp += ch;
+                        continue;
+                } else {
+                    one++;
+                }
             }
-
-            storage[{uc,vc}] = sum;
         }
 
-        cout << sum << "\n";
+        // if (zero == one) {
+        //     ans += zero;
+        // } else {
+        //     ans += max(zero, one);
+        // }
+        if (zero + one == n) {
+            cout << n << "\n";
+        } else {
+            cout << ans + max(zero, one) << "\n";
+        }
+        
     }
 
+    return 0;
 }

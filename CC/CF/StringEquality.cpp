@@ -1,4 +1,4 @@
-//Incomplete
+//AC Later
 #include <bits/stdc++.h>
 #define LLI long long
 using namespace std;
@@ -16,37 +16,28 @@ int main() {
         cin >> a;
         cin >> b;
 
-        if (a == b) {
-            cout << "Yes\n";
-            continue;
-        } 
+        LLI af[26] = {0};
+        LLI bf[26] = {0};
 
-        LLI flag = 0;
-
-        for (LLI i=0;i<n-1;i++) {
-            if (a[i] != b[i]) {
-                if (a[i+1] == b[i]) {
-                    char ch = a[i+1];
-                    a[i+1] = a[i];
-                    a[i] = ch;
-                } else if (a[i+1] == a[i] && b[i+1] == b[i] && a[i] != 'z') {
-                    while (i < n-1 && a[i+1] == a[i] && b[i+1] == b[i] && a[i] != 'z') {
-                        a[i] = b[i];
-                        i++;
-                    }
-                    if (i == n) {
-                        a[i] = a[i-1];
-                    } else {
-                        flag = 1;
-                        break;
-                    }
-                } else {
-                    flag = 1;
-                    break;
-                }
-            }
+        for (LLI i=0;i<n;i++) {
+            af[a[i]-'a']++;
+            bf[b[i]-'a']++;
         }
 
+        bool flag = false;
+
+        for (LLI i=0;i<25;i++) {
+            if (af[i] < bf[i]) {
+                flag = true;
+                break;
+            } else if ((af[i] -= bf[i]) % k) {
+                //will enter when term is not multiple of k
+                flag = true;
+                break;
+            }
+
+            af[i+1] += af[i];
+        }
 
         if (flag) {
             cout << "No\n";

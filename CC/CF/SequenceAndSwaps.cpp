@@ -9,20 +9,16 @@ LLI solve(LLI* arr, LLI n, LLI x) {
     }
     LLI ans = 0;
 
-    LLI brr[n] = {0};
-    brr[n-1] = 1;
-    for (LLI i=n-2;i>=0;i--) {
-        if (arr[i] <= arr[i+1]) {
-            brr[i] = brr[i+1];
-        } else {
-            break;
-        }
+    LLI keep = n-2;
+
+    while ( keep >= 0 && arr[keep] <= arr[keep + 1]) {
+        keep--;
     }
-
-
+    keep++;
+    
     for (LLI i=0;i<n;i++) {
 
-        if (brr[i]) {
+        if (i == keep) {
             break;
         }
 

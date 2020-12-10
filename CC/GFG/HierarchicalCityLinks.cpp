@@ -2,6 +2,7 @@
 #define LLI long long
 using namespace std;
 
+LLI a,b;
 LLI solve(LLI x, LLI y) {
     if (x == y) {
         return 0;
@@ -10,15 +11,20 @@ LLI solve(LLI x, LLI y) {
     if (x == 1) {
         return 1 + solve(x, y/2);
     }
-
     if (y == 1) {
         return 1 + solve(x/2, y);
     }
 
-    LLI a = 1 + solve(x/2, y);
-    LLI b = 1 + solve(x, y/2);
+    if (x == b) {
+        return 0;
+    }
 
-    return min(a, b);
+    if (y == a) {
+        return 0;
+    }
+
+    return 2 + solve(x/2, y/2);
+
 }
 
 int main() {
@@ -29,6 +35,8 @@ int main() {
     while (t--) {
         LLI x, y;
         cin >> x >> y;
+        a = x;
+        b = y;
         cout << solve(x, y) << "\n";   
     }
     return 0;

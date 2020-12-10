@@ -1,1 +1,2 @@
-LLI k = 0;
+cout << "CHECK\n";
+    // cout << mX << " " << mO << "\n";

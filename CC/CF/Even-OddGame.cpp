@@ -12,59 +12,35 @@ int main() {
     while (t--) {
         LLI n;
         cin >> n;
-        LLI arr[n];
+        vector<LLI> arr;
         for (LLI i=0;i<n;i++) {
-            cin >> arr[i];
+            LLI val;
+            cin >> val;
+            arr.push_back(val);
         }
-        LLI e = 0, ec = 0, o = 0, oc = 0;
-        priority_queue<LLI> eq, oq;
+
+        sort(arr.rbegin(), arr.rend());
+        LLI score = 0;
         for (LLI i=0;i<n;i++) {
-            if (arr[i] % 2 == 0) {
-                e += arr[i];
-                eq.push(arr[i]);
-                ec++;
+            if (i % 2 == 0) {
+                if (arr[i] % 2 == 0) {
+                    score += arr[i];
+                }
             } else {
-                o += arr[i];
-                oq.push(arr[i]);
-                oc++;
+                if (arr[i] % 2 != 0) {
+                    score -= arr[i];
+                }
             }
         }
 
-        if (ec == 0) {
+    
+        if (score > 0) {
+            cout << "Alice\n";
+        } else if (score < 0) {
             cout << "Bob\n";
-            continue;
-        } 
-
-        if (oc == 0) {
-            cout << "Alice\n";
-            continue;
-        }
-
-        if (e > o) {
-            cout << "Alice\n";
-        } else if (e < o) {
-
-            while (ec > 0 && oc > 0 && e < o) {
-                o -= oq.top();
-                e -= eq.top();
-                oq.pop();
-                eq.pop();
-                ec--;
-                oc--;
-            }
-
-            if (ec == 0 && oc > 1) {
-                cout << "Bob\n";
-            } else if (ec > 0 && oc == 0) {
-                cout << "Alice\n";
-            } else {
-                cout << "Tie\n";
-            }
-
         } else {
-            cout << "Alice\n";
+            cout << "Tie\n";
         }
-
     }
 
     return 0;

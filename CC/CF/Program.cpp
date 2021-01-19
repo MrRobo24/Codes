@@ -5,43 +5,17 @@
 using namespace std;
 
 void solve(LLI n, LLI m) {   
-    string p;
-    cin >> p;
-    LLI add[n+1];
-    add[0] = 0;
-    cout << p << " CHECK\n";
-    LLI i=1;
-    for (auto c: p) {
-        if (c == '+') {
-            add[i] = add[i-1] + 1;
-        } else {
-            add[i] = add[i-1];
-        }
-        i++;
-    }
-    cout << "ADD: ";
-    for (auto e: add) {
-        cout << e << " ";
-    }
-    cout << "\n";
-    LLI total = add[n] - (n-add[n]);
-    cout << total << "TOT\n";
+    string s;
+    cin >> s;
+    LLI maxim[n+1], minim[n+1], maximr[n+1], minimr[n+1], end[n+1], endr[n+1];
 
-    while (m--) {
-        LLI l, r;
-        cin >> l >> r;
-        l--;
-        r--;
-        LLI change = add[r+1]-add[l+1] - ((r-l+1) - add[r+1]-add[l+1]);
-        cout << change << "CHANGE\n";
-        cout << total - change << "\n";
-    }
+
 }
 
 int main() {
 
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    // ios_base::sync_with_stdio(false);
+    // cin.tie(NULL);
 
     LLI t;
     cin >> t;

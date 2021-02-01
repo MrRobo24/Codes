@@ -17,12 +17,10 @@ int maxSubarraySum(int arr[], int n){
         
         sum += arr[i];
         
-        if (maxim < sum) {
-            maxim = sum;
-        }
-        
         if (sum < 0) {
             sum = 0;
+        } else if (sum > maxim) {
+            maxim = sum;
         }
     }
     

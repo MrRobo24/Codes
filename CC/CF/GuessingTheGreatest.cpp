@@ -1,14 +1,18 @@
-//WA
+//AC LATER
 #include <bits/stdc++.h>
 #define LLI long long
 using namespace std;
 
 LLI ask(LLI l, LLI r) {
-    cout << "? " << l << " " << r << "\n";
+    if (l >= r) {
+        return -1;
+    }
+
+    cout << "? " << l+1 << " " << r+1 << "\n";
     cout.flush();
     LLI smax;
     cin >> smax;
-    return smax;
+    return smax-1;
     
 }
 
@@ -21,39 +25,28 @@ int main() {
 
     LLI n;
     cin >> n;
-    LLI l = 1, r = n;
-    LLI smax = ask(l, r);
-    while (l < r) {
+    LLI l = 0, r = n;
+    
+    while (l + 1 < r) {
         LLI mid = l + (r-l)/2;
-        LLI s2max = 0;
-        if (l == r-1) {
-            s2max = ask(l,r);
-            if (s2max == l) {
-                print(r);
-            } else {
-                print(l);
-            }
-            return 0;
-        }
+        LLI smax = ask(l, r-1);
 
         if (smax < mid) {
-            s2max = ask(l, mid-1);
-            if (smax == s2max) {
-                r = mid-1;
+            if (smax == ask(l, mid-1)) {
+                r = mid;
             } else {
                 l = mid;
             }
-        } else {
-            s2max = ask(mid, r);
-            if (smax == s2max) {
+        } else { 
+            if (smax == ask(mid, r-1)) {
                 l = mid;
             } else {
-                r = mid-1;
+                r = mid;
             }
         }
-
-        smax = s2max;
     }
+
+    print(r);
 
     return 0;
 }

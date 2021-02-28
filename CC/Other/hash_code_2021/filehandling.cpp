@@ -2,17 +2,6 @@
 #define LLI long long
 using namespace std;
 
-void output() {
-    
-    ofstream out("filename.txt");
-    
-    out << "Files can be tricky, but it is fun enough!\n";
-    out << "New Line\n";
-    out << 1 << " " << 4;
-
-    out.close();
-}
-
 
 void readFile(const string &inputPath) {
 

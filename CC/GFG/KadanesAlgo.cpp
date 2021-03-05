@@ -3,12 +3,6 @@
 using namespace std;
 
 
- // } Driver Code Ends
-
-
-// Function to find subarray with maximum sum
-// arr: input array
-// n: size of array
 int maxSubarraySum(int arr[], int n){
     
     int maxim = INT_MIN, sum = 0;
@@ -27,8 +21,6 @@ int maxSubarraySum(int arr[], int n){
     return max(maxim, sum);
     
 }
-
-// { Driver Code Starts.
 
 int main()
 {

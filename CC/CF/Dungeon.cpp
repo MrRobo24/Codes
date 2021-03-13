@@ -13,12 +13,15 @@ int main() {
     while (t--) {
         LLI a, b, c;
         cin >> a >> b >> c;
-        LLI sum = a-1 + b-1 + c-1;
-        sum = sum - 2*((LLI)sum/7);
-        if ( sum != 0 && sum % 3 == 0) {
-            cout << "YES\n";
-        } else {
+        if ((a + b + c) % 9 != 0) {
             cout << "NO\n";
+        } else {
+            LLI k = (a + b + c) / 9;
+            if (a >= k && b >= k && c >= k) {
+                cout << "YES\n";
+            } else {
+                cout << "NO\n";
+            }
         }
 
     }

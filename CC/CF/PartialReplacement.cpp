@@ -18,6 +18,29 @@ void solve() {
     LLI t;
     cin >> t;
     while (t--) {
+        LLI n, k;
+        string s;
+        cin >> n >> k >> s;
+        LLI c = 1;
+        LLI i = s.find_first_of('*');
+        while (i < n) {
+            LLI j = min(i + k, n-1);
+            while (j > i) {
+                if (s[j] == '*') {
+                    c++;
+                    break;
+                }
+                j--;
+            }
+
+            if (j > n || j == i) {
+                break;
+            }
+
+            i = j;
+        }
+
+        cout << c << "\n";
         
     }
 }

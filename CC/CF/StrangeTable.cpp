@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define LLI long long
+#define LLI unsigned long long
 #define umap unordered_map
 #define uset unordered_set
 #define all(v) v.begin(),v.end()
@@ -18,7 +18,16 @@ void solve() {
     LLI t;
     cin >> t;
     while (t--) {
+        LLI n, m, x;
+        cin >> n >> m >> x;
         
+        x--;
+        LLI col = x / n;
+        LLI ex = x % n;
+
+        LLI ans = (ex * m) + (col + 1);
+
+        cout << ans << "\n";
     }
 }
 

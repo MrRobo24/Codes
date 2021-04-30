@@ -1,3 +1,4 @@
+//AC Later
 #include <bits/stdc++.h>
 #define LLI long long
 #define MOD 1000000007
@@ -19,7 +20,36 @@ void solve() {
     LLI t;
     cin >> t;
     while (t--) {
-        
+        LLI n, m, k;
+        cin >> n >> m >> k;
+        vector< vector<LLI> > grid(n, vector<LLI>(m, 0));
+        for (int i=0;i<n;i++) {
+            for (int j=0;j<m;j++) {
+                if (i == 0 && j == 0) {
+                    continue;
+                }
+
+                if (i==0) {
+                    grid[i][j] = 1 + grid[i][j-1];
+                    continue;
+                }
+
+                if (j == 0) {
+                    grid[i][j] = 1 + grid[i-1][j];
+                    continue;
+                }
+
+                grid[i][j] = grid[i][j-1] + (i+1);
+            }
+        }
+
+        if (grid[n-1][m-1] == k) {
+            cout << "YES\n";
+            continue;
+        }
+
+        cout << "NO\n";
+
     }
 }
 

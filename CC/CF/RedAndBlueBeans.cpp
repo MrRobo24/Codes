@@ -19,7 +19,16 @@ void solve() {
     LLI t;
     cin >> t;
     while (t--) {
-        
+        LLI r, b, d;
+        cin >> r >> b >> d;
+        LLI n = min(r, b);
+        if (abs(r-b)  <= n*d) {
+            cout << "YES\n";
+        } else {
+            cout << "NO\n";
+        }
+
+
     }
 }
 

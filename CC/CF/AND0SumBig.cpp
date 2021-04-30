@@ -1,3 +1,4 @@
+//AC
 #include <bits/stdc++.h>
 #define LLI long long
 #define MOD 1000000007
@@ -14,12 +15,23 @@
 
 using namespace std;
 
+LLI complement(LLI n) {
+   LLI bits = floor(log2(n))+1;
+   return ((1 << bits) - 1) ^ n;
+}
+
 void solve() {
     
     LLI t;
     cin >> t;
     while (t--) {
-        
+        LLI n, k;
+        cin >> n >> k;
+        LLI p = 1;
+        for (LLI i=0;i<k;i++) {
+            p = (p%MOD * n % MOD)%MOD;
+        }
+        cout << p << "\n";
     }
 }
 

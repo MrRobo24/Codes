@@ -41,7 +41,7 @@ int main() {
         
         int i = 0, res = k;
         while (i < n) {
-            if (a[i] < res) {
+            if (a[i] <= res) {
                 res += b[i];
                 i++;
             } else {
@@ -50,6 +50,7 @@ int main() {
         }
         
         cout << res << "\n";
-        return 0;
     }
+
+    return 0;
 }
